@@ -6,6 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/driverInfo': 'http://localhost:3000',  // Proxy API calls to the backend
+      '/trackInfo': 'http://localhost:3000',  // Proxy API calls to the backend
+
     },      
   },
 });

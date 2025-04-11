@@ -1,0 +1,51 @@
+/* driverBasicStats.css */
+
+.driver-stats-container {
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .driver-card {
+    background-color: #fff;
+  }
+  
+  .driver-header {
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  .driver-content {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+  }
+  
+  .driver-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .driver-info h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+  }
+  
+  .driver-details p {
+    margin: 4px 0;
+  }
+  
+  .driver-details span {
+    font-weight: bold;
+  }
+  
