@@ -1,41 +1,38 @@
-import { useEffect, useState } from 'react';
+import { useState } from "react";
+import "./App.css";
+import DriverBasicStats from "./components/driverBasicStats.jsx";
+import Tracks from "./components/Tracks.jsx";
 
 function App() {
-  const [driverInfo, setDriverInfo] = useState(null);
-  const [error, setError] = useState(null);
+  const [selectedDriver, setSelectedDriver] = useState(1);
 
-  // Call the backend to get driver info
-  useEffect(() => {
-    const fetchDriverInfo = async () => {
-      try {
-        // Adjust the URL for your backend; this will call the driverInfo route
-        const driver_number = 1; // Example driver number
-        const session_key = '9158'; // Example session key
-        const response = await fetch(`/driverInfo?driver_number=${driver_number}&session_key=${session_key}`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch driver info');
-        }
+  const driverNumbers = [1, 4, 10, 14, 16, 18, 22, 23, 27, 31, 44, 55, 63, 81];
 
-        const data = await response.json();
-        setDriverInfo(data);  // Set the response data
-      } catch (err) {
-        setError(err.message);  // Handle any error
-      }
-    };
-
-    fetchDriverInfo();
-  }, []);
+  const handleDriverChange = (event) => {
+    setSelectedDriver(Number(event.target.value));
+  };
 
   return (
-    <div>
-      <h1>Driver Info</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {driverInfo ? (
-        <pre>{JSON.stringify(driverInfo, null, 2)}</pre>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="driver-info">
+      <h1>F1 Driver Information</h1>
+
+      <div className="driver-selector">
+        <label htmlFor="driver-select">Select Driver Number:</label>
+        <select
+          id="driver-select"
+          value={selectedDriver}
+          onChange={handleDriverChange}
+        >
+          {driverNumbers.map((number) => (
+            <option key={number} value={number}>
+              {number}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <DriverBasicStats driverNumber={selectedDriver} />
+      <Tracks driverNumber={selectedDriver} />
     </div>
   );
 }
