@@ -10,6 +10,7 @@ function Tracks() {
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           setTrackInfo(data);
+          console.log(data);
         }
       })
       .catch((err) => {
@@ -41,6 +42,7 @@ function Tracks() {
           ))}
         </div>
 
+        
         <div className="track-year">
           <h2>2025 Tracks</h2>
           {tracks2025.map((track) => (
