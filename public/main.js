@@ -4,7 +4,6 @@ import './data/locations.js'
 import { getDriverInfo } from '../data/sources/openf1.js';
 import { driversJSON } from '../data/sources/driversJSON.js';
 import { locationDetails2025 } from "../data/locations.js";
-import * as d3 from 'https://d3js.org/d3.v7.min.js'
 
 
 
@@ -21,7 +20,7 @@ function init(_) {
     const trackModal = new bootstrap.Modal(document.getElementById('trackModal'));
     const modalTrackImage = document.getElementById('modal-track-image');
     const modalTitle = document.getElementById('trackModalLabel');
-
+    const trackVisualizationContainer = document.getElementById('track-visualization');
 
     locationDetails2025.forEach(location => {
         const geojsonFilename = `/f1-circuits/circuits/${location.id}.geojson`;
@@ -65,13 +64,13 @@ function init(_) {
     document.querySelectorAll('.track-card').forEach(card => {
         card.addEventListener('click', function () {
             const trackName = this.getAttribute('track-name');
-
-            const trackImage = this.querySelector('.track-image');
+            const trackId = this.getAttribute('track-id');
 
             modalTitle.textContent = trackName;
-            modalTrackImage.src = trackImage.src;
-
+            console.log(trackVisualizationContainer)
+            renderGeoJSON(trackId, trackVisualizationContainer);
             trackModal.show();
+
         });
     });
 
@@ -108,6 +107,34 @@ function init(_) {
     // On change, this function 
     selectElement.onchange = async function (event) {
         render(event.target.value);
+    }
+
+    async function renderGeoJSON(locationId, container) {
+        // Clear the previous SVG content
+        const geojsonFile = `/f1-circuits/circuits/${locationId}.geojson`;
+
+        container.innerHTML = '';
+
+        const width = 400;
+        const height = 400;
+
+        const svg = d3.select(container)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+
+        d3.json(geojsonFile).then(data => {
+            const projection = d3.geoMercator().fitSize([width, height], data);
+            const path = d3.geoPath().projection(projection);
+
+            svg.append('path')
+                .datum(data)
+                .attr('d', path)
+                .attr('fill', 'none')
+                .attr('stroke', 'steelblue')
+                .attr('stroke-width', 2);
+        });
     }
 
     render(1);

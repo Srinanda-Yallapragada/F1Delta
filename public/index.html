@@ -13,6 +13,8 @@
         }
     </style>
 
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
 
 </head>
 
@@ -75,8 +77,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img id="modal-track-image" src="" alt="Track Layout" class="img-fluid">
-                    <!-- <svg id="track-visualization" width="800" height="500"></svg> -->
+                    <!-- <img id="modal-track-image" src="" alt="Track Layout" class="img-fluid"> -->
+
+                    <div id="track-visualization" style="width: 500px; height: 500px;"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
