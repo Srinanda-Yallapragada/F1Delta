@@ -9,8 +9,15 @@
 
 <body>
     <select id="driver-selector"></select>
-    <span id="selected-driver"></span>
-    <script src="./driverSelectorDropdown.js"></script>
+    <div>
+        <!-- the src image is hardcoded to max verstappen as that is the default option on load -->
+        <img id="driver-image"
+            src="https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png" 
+            alt="Driver Image" />
+        <span id="selected-driver"></span>
+    </div>
+
+    <script src="./main.js" type="module"></script>
 </body>
 
 </html>

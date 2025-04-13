@@ -1,3 +1,5 @@
+import { getDriverInfo } from './openf1_api_calls/driverInfo.js';
+
 const driversJSON = [
   { number: 1, name: "Max Verstappen" },
   { number: 4, name: "Lando Norris" },
@@ -15,10 +17,11 @@ const driversJSON = [
   { number: 81, name: "Oscar Piastri" },
 ];
 
-const drivers = {} 
+const drivers = {}
 
 const selectElement = document.getElementById("driver-selector"); //This is the drop down
-const selectedDriver = document.getElementById("selected-driver");
+const selectedDriver = document.getElementById("selected-driver"); //This is the text 
+const selectedDriverImg = document.getElementById("driver-image"); //This is the image
 
 // This loop creates the drop down options
 driversJSON.forEach(driver => {
@@ -30,8 +33,9 @@ driversJSON.forEach(driver => {
 });
 
 // On change, this function 
-selectElement.onchange = function (event) {
+selectElement.onchange = async function (event) {
   const driverNumber = event.target.value;
-  console.log("Selected driver number:", driverNumber);
-  selectedDriver.textContent = `Selected Driver: ${driverNumber}  ${drivers[driverNumber]}`;
+  const driverInfo = await getDriverInfo(driverNumber);
+  selectedDriver.textContent = `Selected Driver: ${driverInfo.driver_number}  ${driverInfo.full_name}`;
+  selectedDriverImg.src = driverInfo.headshot_url;
 }
