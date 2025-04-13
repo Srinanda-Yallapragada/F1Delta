@@ -7,5 +7,7 @@ export const locations = await fetch('/f1-circuits/f1-locations.json').then(res 
  * @param {Array} location
  */
 export function getIdFromLocation(location) {
-    return locations.find(e => e.location == location).id;
+    // return locations.find(e => e.location == location).id;
+    return locations.find(e => e.location == location);
+
 }

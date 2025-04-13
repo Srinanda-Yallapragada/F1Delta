@@ -3,7 +3,7 @@ import './ui/trackGeoJSON.js'
 import './data/locations.js'
 import { getDriverInfo } from '../data/sources/openf1.js';
 import { driversJSON } from '../data/sources/driversJSON.js';
-import { locationIds } from "../data/locations.js";
+import { locationDetails2025 } from "../data/locations.js";
 import * as d3 from 'https://d3js.org/d3.v7.min.js'
 
 
@@ -21,15 +21,15 @@ function init(_) {
 
 
 
-    locationIds.forEach(location => {
-        const geojsonFilename = `/f1-circuits/circuits/${location}.geojson`;
-        const svgFilename = `/f1-circuits/svgs/${location}.svg`;
+    locationDetails2025.forEach(location => {
+        const geojsonFilename = `/f1-circuits/circuits/${location.id}.geojson`;
+        const svgFilename = `/f1-circuits/svgs/${location.id}.svg`;
 
         const trackHTML = `
             <div class="row pb-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-title text-center mb-3">${location}</div>
+                        <div class="card-title text-center mb-3">${location.name}</div>
                         <div class="row align-items-center">
                             
 
@@ -42,7 +42,7 @@ function init(_) {
     
                             
                             <div class="col-md-6 text-center">
-                                <img src="${svgFilename}" alt="${location} track" class="img-fluid"/>
+                                <img src="${svgFilename}" alt="${location.id} track" class="img-fluid"/>
                             </div>
     
                             <div class="col-md-3 text-end">
@@ -76,6 +76,15 @@ function init(_) {
         driverNameElement.textContent = driverInfo.full_name;
         driverNumberElement.textContent = driverInfo.driver_number;
         selectedDriverImg.src = driverInfo.headshot_url;
+
+        // from driversJSON to update the driver info with wins and other stats
+        const localDriver = driversJSON.find(d => d.number == driverNumber);
+
+        document.getElementById("wins").textContent = localDriver.wins;
+        document.getElementById("poles").textContent = localDriver.poles;
+        document.getElementById("podiums").textContent = localDriver.podiums;
+        document.getElementById("championships").textContent = localDriver.championships;
+
     }
 
     // On change, this function 
