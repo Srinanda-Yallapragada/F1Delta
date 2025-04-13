@@ -1,5 +1,5 @@
-import { getIdFromLocation } from "./sources/localJSON.js";
+import { getIdFromLocation as getLocObjFromName } from "./sources/localJSON.js";
 import { completedRaces2025 } from "./sources/openf1.js";
 
-export const locationIds = completedRaces2025.map(race => getIdFromLocation(race.location))
+export const locationDetails2025 = completedRaces2025.map(race => getLocObjFromName(race.location))
 
