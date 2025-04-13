@@ -77,6 +77,9 @@ function init(_) {
         driverNumberElement.textContent = driverInfo.driver_number;
         selectedDriverImg.src = driverInfo.headshot_url;
 
+        document.body.style.backgroundColor = `#${driverInfo.team_colour}`;
+
+
         // from driversJSON to update the driver info with wins and other stats
         const localDriver = driversJSON.find(d => d.number == driverNumber);
 
