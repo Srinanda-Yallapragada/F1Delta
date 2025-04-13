@@ -18,7 +18,9 @@ function init(_) {
     const selectedDriverImg = document.getElementById("driver-image"); //This is the image
     const selectTrackList = document.getElementById("track-list");
 
-
+    const trackModal = new bootstrap.Modal(document.getElementById('trackModal'));
+    const modalTrackImage = document.getElementById('modal-track-image');
+    const modalTitle = document.getElementById('trackModalLabel');
 
 
     locationDetails2025.forEach(location => {
@@ -27,7 +29,7 @@ function init(_) {
 
         const trackHTML = `
             <div class="row pb-3">
-                <div class="card">
+                <div class="card track-card" track-id="${location.id}" track-name="${location.name}">
                     <div class="card-body">
                         <div class="card-title text-center mb-3">${location.name}</div>
                         <div class="row align-items-center">
@@ -42,7 +44,7 @@ function init(_) {
     
                             
                             <div class="col-md-6 text-center">
-                                <img src="${svgFilename}" alt="${location.id} track" class="img-fluid"/>
+                                <img src="${svgFilename}" alt="${location.id} track" class="img-fluid track-image"/>
                             </div>
     
                             <div class="col-md-3 text-end">
@@ -59,6 +61,19 @@ function init(_) {
         selectTrackList.innerHTML += trackHTML;
     });
 
+    // Add click listener to all track cards
+    document.querySelectorAll('.track-card').forEach(card => {
+        card.addEventListener('click', function () {
+            const trackName = this.getAttribute('track-name');
+
+            const trackImage = this.querySelector('.track-image');
+
+            modalTitle.textContent = trackName;
+            modalTrackImage.src = trackImage.src;
+
+            trackModal.show();
+        });
+    });
 
 
     // This loop creates the drop down options
