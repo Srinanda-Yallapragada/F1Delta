@@ -2,6 +2,7 @@ import './data/locations.js'
 import { generateTrackSvgHtml } from "./ui/trackSVG.js"
 import { renderGeoJSON } from './ui/trackGeoJSON.js';
 import { loadDriverData } from './data/sources/loadDriverData.js';
+import { loadTrackResults } from './data/sources/loadTrackResults.js';
 import { render } from './ui/render.js';
 import * as elements from "./ui/elements.js";
 
@@ -9,7 +10,10 @@ import * as elements from "./ui/elements.js";
 async function init() {
 
     // This loop creates the drop down options and  populates the drivers object
+    await loadTrackResults()
+
     await loadDriverData();
+
 
     // Adds track cards 
     generateTrackSvgHtml();
