@@ -1,5 +1,5 @@
 import { drivers, driverIds, driversJSON } from './driversJSON.js'
-import { getDriverInfo } from "./openf1.js";
+import { getDriverInfo } from "./api_calls.js";
 import { selectElement } from '../../ui/elements.js';
 
 export async function loadDriverData() {
