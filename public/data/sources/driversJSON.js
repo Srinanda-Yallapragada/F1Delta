@@ -1,4 +1,5 @@
 
+
 //This was done by hand using https://www.statsf1.com/
 export const driversJSON = [
   { number: 1, name: "Max Verstappen", wins: 64, poles: 41, podiums: 114, championships: 4 },
@@ -16,10 +17,7 @@ export const driversJSON = [
   { number: 63, name: "George Russell", wins: 3, poles: 5, podiums: 17, championships: 0 },
   { number: 81, name: "Oscar Piastri", wins: 3, poles: 2, podiums: 12, championships: 0 },
 ];
-export const drivers = {}
 
-// This populates the drivers object
-driversJSON.forEach(driver => {
-  drivers[driver.number] = driver.name;
-});
+export const driverIds = [];
+export const drivers = {}
 

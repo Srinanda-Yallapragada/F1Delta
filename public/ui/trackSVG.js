@@ -1,4 +1,5 @@
 import { selectTrackList } from "./elements.js"
+import { locationDetails2025 } from "../data/locations.js";
 
 export function generateTrackSvgHtml() {
 
