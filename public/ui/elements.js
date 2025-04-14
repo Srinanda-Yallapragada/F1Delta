@@ -4,7 +4,14 @@ export const driverNameElement = document.getElementById("driver-name"); //This 
 export const driverNumberElement = document.getElementById("driver-number"); //This is the text 
 export const selectedDriverImg = document.getElementById("driver-image"); //This is the image
 
-export const trackModal = new bootstrap.Modal(document.getElementById('trackModal'));
 export const modalTrackImage = document.getElementById('modal-track-image');
 export const modalTitle = document.getElementById('trackModalLabel');
 export const trackVisualizationContainer = document.getElementById('track-visualization');
+
+export const driverStatsElements = document.querySelectorAll('.driver-stats-24');
+// export const driverStatsElements25 = document.querySelectorAll('.driver-stats-25');
+
+export const wins = document.getElementById("wins");
+export const poles = document.getElementById("poles");
+export const podiums = document.getElementById("podiums");
+export const championships = document.getElementById("championships"); 
