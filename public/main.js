@@ -1,76 +1,23 @@
-import './ui/driverSelectorDropdown.js';
-import './ui/trackGeoJSON.js'
 import './data/locations.js'
 import { getDriverInfo } from '../data/sources/openf1.js';
 import { driversJSON } from '../data/sources/driversJSON.js';
 import { locationDetails2025 } from "../data/locations.js";
-
-
-
+import { generateTrackSvgHtml } from "./ui/trackSVG.js"
+import { selectTrackList, selectElement, driverNameElement, driverNumberElement, trackModal, selectedDriverImg, modalTrackImage, modalTitle, trackVisualizationContainer } from "./ui/elements.js";
 
 
 function init(_) {
-
-    const selectElement = document.getElementById("driver-selector"); //This is the drop down
-    const driverNameElement = document.getElementById("driver-name"); //This is the text 
-    const driverNumberElement = document.getElementById("driver-number"); //This is the text 
-    const selectedDriverImg = document.getElementById("driver-image"); //This is the image
-    const selectTrackList = document.getElementById("track-list");
-
-    const trackModal = new bootstrap.Modal(document.getElementById('trackModal'));
-    const modalTrackImage = document.getElementById('modal-track-image');
-    const modalTitle = document.getElementById('trackModalLabel');
-    const trackVisualizationContainer = document.getElementById('track-visualization');
-
-    locationDetails2025.forEach(location => {
-        const geojsonFilename = `/f1-circuits/circuits/${location.id}.geojson`;
-        const svgFilename = `/f1-circuits/svgs/${location.id}.svg`;
-
-        const trackHTML = `
-            <div class="row pb-3">
-                <div class="card track-card" track-id="${location.id}" track-name="${location.name}">
-                    <div class="card-body">
-                        <div class="card-title text-center mb-3">${location.name}</div>
-                        <div class="row align-items-center">
-                            
-
-                            <div class="col-md-3 text-start">
-                                <h6>2024</h6>
-                                <p>Position: 1st</p>
-                                <p>Fastest Lap: 1:23.456</p>
-                                <p>Points Gained: 25</p>
-                            </div>
-    
-                            
-                            <div class="col-md-6 text-center">
-                                <img src="${svgFilename}" alt="${location.id} track" class="img-fluid track-image"/>
-                            </div>
-    
-                            <div class="col-md-3 text-end">
-                                <h6>2025</h6>
-                                <p>Position: 2nd</p>
-                                <p>Fastest Lap: 1:24.123</p>
-                                <p>Points Gained: 18</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-
-        selectTrackList.innerHTML += trackHTML;
-    });
+    generateTrackSvgHtml()
 
     // Add click listener to all track cards
-    document.querySelectorAll('.track-card').forEach(card => {
+    document.getElementsByClassName('track-card').forEach(card => {
         card.addEventListener('click', function () {
-            const trackName = this.getAttribute('track-name');
-            const trackId = this.getAttribute('track-id');
+            const trackName = this.dataset.trackName;
+            const trackId = this.dataset.trackId;
 
             modalTitle.textContent = trackName;
-            console.log(trackVisualizationContainer)
             renderGeoJSON(trackId, trackVisualizationContainer);
             trackModal.show();
-
         });
     });
 
@@ -102,6 +49,24 @@ function init(_) {
         document.getElementById("podiums").textContent = localDriver.podiums;
         document.getElementById("championships").textContent = localDriver.championships;
 
+
+        document.querySelectorAll('.driver-stats-24').forEach(statContainer => {
+            const trackId = statContainer.dataset.trackId;
+            const result = localDriver.results?.[trackId];
+
+            statContainer.querySelector('.position').textContent = "test";
+            statContainer.querySelector('.lap').textContent = "test";
+            statContainer.querySelector('.points').textContent = "test";
+        });
+
+        document.querySelectorAll('.driver-stats-25').forEach(statContainer => {
+            const trackId = statContainer.dataset.trackId;
+            const result = localDriver.results?.[trackId];
+
+            statContainer.querySelector('.position').textContent = "test";
+            statContainer.querySelector('.lap').textContent = "test";
+            statContainer.querySelector('.points').textContent = "test";
+        });
     }
 
     // On change, this function 
