@@ -16,3 +16,7 @@ async function getCompletedRaces2025() {
 
 
 export const completedRaces2025 = await getCompletedRaces2025();
+
+async function getRaceResults(completedRaces2025){
+    
+}
