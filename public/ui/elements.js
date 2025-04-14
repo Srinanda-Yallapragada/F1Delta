@@ -8,8 +8,6 @@ export const modalTrackImage = document.getElementById('modal-track-image');
 export const modalTitle = document.getElementById('trackModalLabel');
 export const trackVisualizationContainer = document.getElementById('track-visualization');
 
-export const driverStatsElements = document.querySelectorAll('.driver-stats-24');
-// export const driverStatsElements25 = document.querySelectorAll('.driver-stats-25');
 
 export const wins = document.getElementById("wins");
 export const poles = document.getElementById("poles");
