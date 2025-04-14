@@ -9,10 +9,14 @@ import * as elements from "./ui/elements.js";
 
 async function init() {
 
-    // This loop creates the drop down options and  populates the drivers object
+    //loads all driver results for the tracks that have occured so far
     await loadTrackResults()
 
+    // This function creates the drop down options and  populates the drivers object
     await loadDriverData();
+
+
+
 
 
     // Adds track cards 

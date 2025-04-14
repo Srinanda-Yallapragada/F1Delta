@@ -1,4 +1,8 @@
+import { getIdFromLocation } from "./localJSON.js";
+
+
 const OPENF1_API_URL = 'https://api.openf1.org/v1';
+const JOLPI_API_URL = 'http://api.jolpi.ca/ergast/f1'
 
 
 export async function getDriverInfo(driver_number, session_key = 'latest') {
@@ -11,13 +15,11 @@ export async function getDriverInfo(driver_number, session_key = 'latest') {
 
 export async function getCompletedRaces2025() {
     const res = await fetch(`${OPENF1_API_URL}/sessions?session_name=Race&year=2025`);
-    return (await res.json()) 
+    return (await res.json())
 }
 
 
 export const completedRaces2025 = await getCompletedRaces2025();
 
-export async function getRaceResults(completedRaces2025){
-    console.log(completedRaces2025);
 
-}
+
