@@ -1,6 +1,4 @@
 import './data/locations.js'
-import { getDriverInfo } from './data/sources/openf1.js';
-import { drivers, driverIds, driversJSON } from './data/sources/driversJSON.js';
 import { generateTrackSvgHtml } from "./ui/trackSVG.js"
 import { renderGeoJSON } from './ui/trackGeoJSON.js';
 import { loadDriverData } from './data/sources/loadDriverData.js';
