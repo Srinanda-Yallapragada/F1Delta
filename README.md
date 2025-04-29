@@ -1,15 +1,6 @@
 # f1delta
 
-To install dependencies:
 
-```bash
-bun install
-```
+To run this code, simply clone the repository and run the command python -m http.server -d public/  
 
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.9. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+This will open a locally hosted copy of the website. I plan on hosting the website on github once it is completed.
