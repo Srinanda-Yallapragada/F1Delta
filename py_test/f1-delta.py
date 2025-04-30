@@ -463,6 +463,8 @@ def simple_plot():
     return fig
 
 
+
+
 def refresh_views():
     track = st.session_state.get("track")
     driver = st.session_state.get("driver")
