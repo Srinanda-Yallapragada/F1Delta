@@ -1,16 +1,7 @@
 import streamlit as st
-import streamlit.components.v1 as components
-import matplotlib.pyplot as plt, mpld3  # use st.pyplot for interactivity
-from mpld3 import fig_to_html, plugins
 import fastf1
-import fastf1.plotting
 import pandas as pd
 from datetime import datetime
-import numpy as np
-
-import plotly.express as px
-import plotly.graph_objects as go
-
 
 # This was done by hand using https://www.statsf1.com/ #TODO update these
 driver_stats = [

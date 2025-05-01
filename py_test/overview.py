@@ -1,10 +1,6 @@
 import streamlit as st
 from data_processing import *
 
-
-
-
-
 def display_driver_overview(track, driver, abbreviation):
     _, team_color_2024, _ = get_driver_result_info(2024, track, abbreviation)
     _, team_color_2025, _ = get_driver_result_info(2025, track, abbreviation)
