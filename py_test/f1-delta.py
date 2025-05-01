@@ -22,6 +22,7 @@ st.set_page_config(page_title="F1 Delta", layout="wide")
 
 
 # markdown style description for the classes and font sizes
+
 st.markdown(
     """
     <style>
@@ -81,7 +82,7 @@ def refresh_views():
 
     display_driver_overview(track, driver, abbreviation)
     qualifying_comparision_view(track, driver, abbreviation)
-    fastest_qualifying_lap_overlaid_rpm_view(track, driver, abbreviation)
+    rpm_vs_distance_fastest_lap_view(track, driver, abbreviation)
     fastest_qualifying_lap_speed_view(track, driver, abbreviation)
     position_comparision_view(track, driver, abbreviation)
 

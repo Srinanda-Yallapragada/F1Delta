@@ -136,6 +136,29 @@ driver_stats = [
 driver_names = [driver["name"] for driver in driver_stats]
 
 
+def get_driver_qualifying_info(year, track, abbreviation):
+    qual_session = fastf1.get_session(year, track, "Q")
+    qual_session.load()
+    qual_results = qual_session.results
+    driver_qual = qual_results[qual_results["Abbreviation"] == abbreviation].iloc[0]
+    position = int(driver_qual["Position"])
+    lap_time = (
+        format_timedelta(driver_qual["Q3"])
+        if pd.notna(driver_qual["Q3"])
+        else (
+            format_timedelta(driver_qual["Q2"])
+            if pd.notna(driver_qual["Q2"])
+            else format_timedelta(driver_qual["Q1"])
+        )
+    )
+    return (
+        position,
+        lap_time,
+        "#" + driver_qual["TeamColor"],
+        driver_qual["TeamName"],
+    )
+
+
 @st.cache_data
 def get_fastest_qualifying_lap_telemetry(year, track, abbreviation):
     session = fastf1.get_session(year, track, "Q")
@@ -214,31 +237,6 @@ def format_timedelta(delta):
     minutes = int(delta.total_seconds() // 60)
     seconds = delta.total_seconds() % 60
     return f"{minutes}:{seconds:.3f}"
-
-
-# TODO fix bugs in comparision logic
-def get_driver_qualifying_info(year, track, abbreviation):
-
-    qual_session = fastf1.get_session(year, track, "Q")
-    qual_session.load()
-    qual_results = qual_session.results
-    driver_qual = qual_results[qual_results["Abbreviation"] == abbreviation].iloc[0]
-    position = int(driver_qual["Position"])
-    lap_time = (
-        format_timedelta(driver_qual["Q3"])
-        if pd.notna(driver_qual["Q3"])
-        else (
-            format_timedelta(driver_qual["Q2"])
-            if pd.notna(driver_qual["Q2"])
-            else format_timedelta(driver_qual["Q1"])
-        )
-    )
-    return (
-        position,
-        lap_time,
-        "#" + driver_qual["TeamColor"],
-        driver_qual["TeamName"],
-    )
 
 
 def get_driver_result_info(year, track, abbreviation):
