@@ -6,10 +6,10 @@ from data_processing import *
 
 
 def qualifying_comparision_view(track, driver, abbreviation):
-    qual_pos_24, qual_lap_24, team_color_2024, team_name_2024 = (
+    qual_pos_24, qual_lap_time_24, team_color_2024, team_name_2024 = (
         get_driver_qualifying_info(2024, track, abbreviation)
     )
-    qual_pos_25, qual_lap_25, team_color_2025, team_name_2025 = (
+    qual_pos_25, qual_lap_time_25, team_color_2025, team_name_2025 = (
         get_driver_qualifying_info(2025, track, abbreviation)
     )
     st.markdown(
@@ -17,8 +17,8 @@ def qualifying_comparision_view(track, driver, abbreviation):
         unsafe_allow_html=True,
     )
 
-    formatted_pos_24 = f"<span class='medium' style='color:{team_color_2024}'>{qual_pos_24} ({qual_lap_24}) with {team_name_2024}</span>"
-    formatted_pos_25 = f"<span class='medium' style='color:{team_color_2025}'>{qual_pos_25} ({qual_lap_25}) with {team_name_2025}</span>"
+    formatted_pos_24 = f"<span class='medium' style='color:{team_color_2024}'>{qual_pos_24} ({qual_lap_time_24}) with {team_name_2024}</span>"
+    formatted_pos_25 = f"<span class='medium' style='color:{team_color_2025}'>{qual_pos_25} ({qual_lap_time_25}) with {team_name_2025}</span>"
 
     if qual_pos_24 < qual_pos_25:
         performance_text = f"{driver} qualified <span class='medium'>WORSE</span> at {track} in 2025 compared to 2024."

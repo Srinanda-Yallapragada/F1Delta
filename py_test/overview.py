@@ -13,32 +13,49 @@ def display_driver_overview(track, driver, abbreviation):
         unsafe_allow_html=True,
     )
 
-    # TODO load driver image, install them from f1 avif files and load them from the f1-circuits folder i guess
-    st.markdown(
-        f"<span class ='large'>Overall Stats</span>",
-        unsafe_allow_html=True,
-    )
-    selected_driver_data = next((d for d in driver_stats if d["name"] == driver), None)
-    if selected_driver_data:
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.markdown(
-                f"<span class='stat-value'>{selected_driver_data['wins']}</span><br><span class='stat-label'>Wins</span>",
-                unsafe_allow_html=True,
-            )
-        with col2:
-            st.markdown(
-                f"<span class='stat-value'>{selected_driver_data['poles']}</span><br><span class='stat-label'>Poles</span>",
-                unsafe_allow_html=True,
-            )
-        with col3:
-            st.markdown(
-                f"<span class='stat-value'>{selected_driver_data['podiums']}</span><br><span class='stat-label'>Podiums</span>",
-                unsafe_allow_html=True,
-            )
-        with col4:
-            st.markdown(
-                f"<span class='stat-value'>{selected_driver_data['championships']}</span><br><span class='stat-label'>Championships</span>",
-                unsafe_allow_html=True,
-            )
+    # Create a container for the driver image and stats
+    image_col, stats_col = st.columns([1, 2])
+    
+    with image_col:
+        st.markdown(
+            f"<div style='text-align: center; padding: 10px;'>",
+            unsafe_allow_html=True,
+        )
+        driver_image = f"driver_images/{driver}.png"
+        st.image(driver_image, width=250, use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    with stats_col:
+        st.markdown(
+            f"<div style='display: flex; flex-direction: column; justify-content: center; height: 100%;'>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            f"<span class='large'>Overall Stats</span>",
+            unsafe_allow_html=True,
+        )
+        selected_driver_data = next((d for d in driver_stats if d["name"] == driver), None)
+        if selected_driver_data:
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.markdown(
+                    f"<span class='stat-value'>{selected_driver_data['wins']}</span><br><span class='stat-label'>Wins</span>",
+                    unsafe_allow_html=True,
+                )
+            with col2:
+                st.markdown(
+                    f"<span class='stat-value'>{selected_driver_data['poles']}</span><br><span class='stat-label'>Poles</span>",
+                    unsafe_allow_html=True,
+                )
+            with col3:
+                st.markdown(
+                    f"<span class='stat-value'>{selected_driver_data['podiums']}</span><br><span class='stat-label'>Podiums</span>",
+                    unsafe_allow_html=True,
+                )
+            with col4:
+                st.markdown(
+                    f"<span class='stat-value'>{selected_driver_data['championships']}</span><br><span class='stat-label'>Championships</span>",
+                    unsafe_allow_html=True,
+                )
+        st.markdown("</div>", unsafe_allow_html=True)
 
