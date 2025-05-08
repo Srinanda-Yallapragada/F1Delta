@@ -81,10 +81,13 @@ def refresh_views():
     # st.plotly_chart(simple_plot())
 
     display_driver_overview(track, driver, abbreviation)
-    qualifying_comparision_view(track, driver, abbreviation)
-    rpm_vs_distance_fastest_lap_view(track, driver, abbreviation)
-    fastest_qualifying_lap_speed_view(track, driver, abbreviation)
-    position_comparision_view(track, driver, abbreviation)
+    # qualifying_comparision_view(track, driver, abbreviation)
+    # rpm_vs_distance_fastest_lap_view(track, driver, abbreviation)
+    # fastest_qualifying_lap_speed_view(track, driver, abbreviation)
+    # position_comparision_view(track, driver, abbreviation)
+
+    # avg_speed_vs_distance_race_view(track, driver, abbreviation)
+
 
 
 # on change watchers

@@ -23,15 +23,15 @@ driver_stats = [
     #     "podiums": 29,
     #     "championships": 0,
     # },
-    {
-        "number": 10,
-        "name": "Pierre Gasly",
-        "abbreviation": "GAS",
-        "wins": 1,
-        "poles": 0,
-        "podiums": 5,
-        "championships": 0,
-    },
+    # {
+    #     "number": 10,
+    #     "name": "Pierre Gasly",
+    #     "abbreviation": "GAS",
+    #     "wins": 1,
+    #     "poles": 0,
+    #     "podiums": 5,
+    #     "championships": 0,
+    # },
     # {
     #     "number": 14,
     #     "name": "Fernando Alonso",
@@ -157,7 +157,18 @@ def get_driver_qualifying_info(year, track, abbreviation):
         "#" + driver_qual["TeamColor"],
         driver_qual["TeamName"],
     )
+def get_driver_race_info(year, track, abbreviation):
 
+    race_session = fastf1.get_session(year, track, "R")
+    race_session.load()
+    race_results = race_session.results
+    driver_race = race_results[race_results["Abbreviation"] == abbreviation].iloc[0]
+    position = int(driver_race["Position"])
+    fastest_lap_time_td = driver_race["FastestLap"]["Time"]
+    fastest_lap_time = format_timedelta(fastest_lap_time_td)
+    team_color = "#" + driver_race["TeamColor"]
+
+    return (position, fastest_lap_time, team_color)
 
 @st.cache_data
 def get_fastest_qualifying_lap_telemetry(year, track, abbreviation):
@@ -222,6 +233,17 @@ def get_fastest_qualifying_lap_telemetry(year, track, abbreviation):
     fastest_lap = driver_laps.pick_fastest()
     telemetry = fastest_lap.get_telemetry().add_distance()
     # print(telemetry)
+    return telemetry
+
+
+@st.cache_data
+def get_race_telemetry(year, track, abbreviation):
+
+    race = fastf1.get_session(year, track, "R")
+    race.load()
+    laps = race.laps.pick_drivers(abbreviation)
+    # telemetry = laps.get_telemetry().compute() # may need to change #TODO
+    telemetry = laps.get_telemetry().add_distance()
     return telemetry
 
 
