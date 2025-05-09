@@ -3,6 +3,10 @@ import fastf1
 import pandas as pd
 from datetime import datetime
 
+import json
+import os
+
+
 # This was done by hand using https://www.statsf1.com/ #TODO update these
 driver_stats = [
     # {
@@ -136,6 +140,48 @@ driver_stats = [
 driver_names = [driver["name"] for driver in driver_stats]
 
 
+
+def get_track_id(track_name):
+    # Load the locations JSON file
+    with open('../public/f1-circuits/f1-locations.json', 'r') as f:
+        locations = json.load(f)
+    
+    # Map of Grand Prix names to circuit names
+    track_name_mapping = {
+        "Australian Grand Prix": "Albert Park Circuit",
+        "Bahrain Grand Prix": "Bahrain International Circuit",
+        "Saudi Arabian Grand Prix": "Jeddah Corniche Circuit",
+        "Japanese Grand Prix": "Suzuka International Racing Course",
+        "Chinese Grand Prix": "Shanghai International Circuit",
+        "Miami Grand Prix": "Miami International Autodrome",
+        "Emilia Romagna Grand Prix": "Autodromo Enzo e Dino Ferrari",
+        "Monaco Grand Prix": "Circuit de Monaco",
+        "Canadian Grand Prix": "Circuit Gilles-Villeneuve",
+        "Spanish Grand Prix": "Circuit de Barcelona-Catalunya",
+        "Austrian Grand Prix": "Red Bull Ring",
+        "British Grand Prix": "Silverstone Circuit",
+        "Hungarian Grand Prix": "Hungaroring",
+        "Belgian Grand Prix": "Circuit de Spa-Francorchamps",
+        "Dutch Grand Prix": "Circuit Zandvoort",
+        "Italian Grand Prix": "Autodromo Nazionale Monza",
+        "Singapore Grand Prix": "Marina Bay Street Circuit",
+        "United States Grand Prix": "Circuit of the Americas",
+        "Mexican Grand Prix": "Autódromo Hermanos Rodríguez",
+        "Brazilian Grand Prix": "Autódromo José Carlos Pace - Interlagos",
+        "Las Vegas Grand Prix": "Las Vegas Street Circuit",
+        "Qatar Grand Prix": "Losail International Circuit",
+        "Abu Dhabi Grand Prix": "Yas Marina Circuit"
+    }
+    
+    # Convert Grand Prix name to circuit name if it exists in mapping
+    circuit_name = track_name_mapping.get(track_name, track_name)
+    
+    # Find the track by name
+    for location in locations:
+        if location['name'] == circuit_name:
+            return location['id']
+    return None
+
 def get_driver_qualifying_info(year, track, abbreviation):
     qual_session = fastf1.get_session(year, track, "Q")
     qual_session.load()
@@ -164,11 +210,22 @@ def get_driver_race_info(year, track, abbreviation):
     race_results = race_session.results
     driver_race = race_results[race_results["Abbreviation"] == abbreviation].iloc[0]
     position = int(driver_race["Position"])
-    fastest_lap_time_td = driver_race["FastestLap"]["Time"]
-    fastest_lap_time = format_timedelta(fastest_lap_time_td)
     team_color = "#" + driver_race["TeamColor"]
 
-    return (position, fastest_lap_time, team_color)
+    return (position, team_color)
+def get_teammate_info(year, track, abbreviation):
+    race_session = fastf1.get_session(year, track, "R")
+    race_session.load()
+    race_results = race_session.results
+    
+    driver_race = race_results[race_results["Abbreviation"] == abbreviation].iloc[0]
+    team_name = driver_race["TeamName"]
+    
+    team_drivers = race_results[race_results["TeamName"] == team_name]
+
+    team_mate = team_drivers[team_drivers["Abbreviation"] != abbreviation].iloc[0]
+    return team_mate
+    
 
 @st.cache_data
 def get_fastest_qualifying_lap_telemetry(year, track, abbreviation):
