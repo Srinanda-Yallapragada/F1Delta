@@ -7,7 +7,7 @@ import pandas as pd
 from quali import *
 from race import *
 from overview import *
-
+from relative_performance import *
 
 # for interactive plots
 fastf1.plotting.setup_mpl(
@@ -85,7 +85,7 @@ def refresh_views():
     # rpm_vs_distance_fastest_lap_view(track, driver, abbreviation)
     # fastest_qualifying_lap_speed_view(track, driver, abbreviation)
     # position_comparision_view(track, driver, abbreviation)
-
+    # relative_performance_view(track, driver, abbreviation)
     # avg_speed_vs_distance_race_view(track, driver, abbreviation)
 
 
