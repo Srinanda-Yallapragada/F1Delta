@@ -143,7 +143,7 @@ driver_names = [driver["name"] for driver in driver_stats]
 
 def get_track_id(track_name):
     # Load the locations JSON file
-    with open('../public/f1-circuits/f1-locations.json', 'r') as f:
+    with open('public/f1-circuits/f1-locations.json', 'r') as f:
         locations = json.load(f)
     
     # Map of Grand Prix names to circuit names
