@@ -34,7 +34,7 @@ def display_driver_overview(track, driver, abbreviation):
                 )
 
         with image_col:
-            driver_image = f"driver_images/{driver}.png"
+            driver_image = f"public/driver_images/{driver}.png"
             encoded = base64.b64encode(open(driver_image, 'rb').read()).decode()
             st.markdown(
                 f"""
@@ -64,7 +64,7 @@ def display_driver_overview(track, driver, abbreviation):
 
     # Display the track SVG in a dedicated section
     track_id = get_track_id(track)
-    svg_path = f"../public/f1-circuits/svgs/{track_id}.svg"
+    svg_path = f"public/f1-circuits/svgs/{track_id}.svg"
     if os.path.exists(svg_path):
         with open(svg_path, "r") as f:
             svg_content = f.read()
