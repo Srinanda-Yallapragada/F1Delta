@@ -16,10 +16,10 @@ fastf1.plotting.setup_mpl(
     mpl_timedelta_support=True, misc_mpl_mods=False, color_scheme="None"
 )
 
-os.makedirs("fastf1_cache", exist_ok=True)
+# os.makedirs("fastf1_cache", exist_ok=True)
 
 # make sure that the folder 'fastf1_cache' exsits
-fastf1.Cache.enable_cache("fastf1_cache")
+fastf1.Cache.enable_cache("public/fastf1_cache")
 
 st.set_page_config(page_title="F1 Delta", layout="wide")
 
@@ -97,7 +97,7 @@ selected_driver_name = st.sidebar.selectbox(
 
 # Add process book link
 st.sidebar.markdown("---")
-with open("process book.pdf", "rb") as file:
+with open("public/process book.pdf", "rb") as file:
     st.sidebar.download_button(
         label="Download Process Book",
         data=file,
